@@ -1,21 +1,15 @@
 <?php
-//menu.php
-// Detecta la página actual para marcar el link activo automáticamente
-$current = basename($_SERVER['PHP_SELF']);
-function isActive($page, $current)
-{
-  return $page === $current ? 'active' : '';
-}
+// menu.php
+// NOTA: Para marcar el enlace activo, se debe usar la variable $pagina que viene de inicio.php
+// Ejemplo: $pagina = isset($_GET['op']) ? strtolower($_GET['op']) : 'bienvenida';
+// function isActive($op) { return $op === $GLOBALS['pagina'] ? 'active' : ''; }
 ?>
-<!-- Bootstrap 5 (si ya lo cargas en tu layout, puedes quitar estas 2 líneas) -->
-<!--<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" -->
-<!--<link href="../bootstrap/css/bootstrap-icons.css" rel="stylesheet" -->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm pf-nav">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center gap-2" href="inicio.php">
       <span class="pf-logo d-inline-block"></span>
-      <strong>Programación Web • ISC</strong>
+      <strong>[Nombre del Proyecto]</strong>
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#pfNavbar"
@@ -26,84 +20,98 @@ function isActive($page, $current)
     <div class="collapse navbar-collapse" id="pfNavbar">
       <ul class="navbar-nav ms-auto align-items-lg-center mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link position-relative <?= isActive('inicio.php', $current) ?>" href="inicio.php">
+          <a class="nav-link position-relative active" href="inicio.php">
             <i class="bi bi-house-door me-1"></i>Inicio
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link position-relative <?= isActive('rptarticulos.php', $current) ?>" href="inicio.php?op=rptarticulos">
-            <i class="bi bi-graph-up me-1"></i>Articulos
+          <a class="nav-link position-relative" href="inicio.php?op=seccion1">
+            <i class="bi bi-gear me-1"></i>Sección Uno
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link position-relative <?= isActive('rptUsuarios.php', $current) ?>" href="inicio.php?op=rptUsuarios">
-            <i class="bi bi-pencil-square me-1"></i>Admin Productos
+          <a class="nav-link position-relative" href="inicio.php?op=seccion2">
+            <i class="bi bi-people me-1"></i>Sección Dos
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link position-relative <?= isActive('acceso.php', $current) ?>" href="inicio.php?op=acceso">
-            <i class="bi bi-person-circle me-1"></i>Mi sesión
-          </a>
-        </li>
-
-
         <?php
-        if (isset($_SESSION['nomUsuario'])) {
-
-          // Obtener el rol
-          $rol = $_SESSION['rolNombre'] ?? 'usuario';
-
-          // Elegir la imagen según el rol
-          if ($rol === 'ADMINISTRADOR') {
-            $imagen = 'imagenes/usuarios/usuAdmin.png';
-          } else if ($rol === 'usuario') {
-            $imagen = 'imagenes/usuarios/usuUser.png';
-          } else {
-            $imagen = 'imagenes/usuarios/usuNoUser.png';
-          }
+        // LÓGICA DE SESIÓN (Dejar esta estructura para manejar el estado logueado/deslogueado)
+        if (isset($_SESSION['usuario_logueado'])) { 
+          // Reemplaza 'usuario_logueado' por la variable de sesión que uses para verificar
+          $nombreUsuario = $_SESSION['nombre'] ?? 'Usuario';
+          $rolUsuario = $_SESSION['rol'] ?? 'Invitado';
         ?>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 position-relative <?= isActive('cerrarsesion.php', $current) ?>"
-              href="inicio.php?op=cerrarsesion">
-
-              <!-- Imagen -->
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="nav-link d-flex align-items-center gap-2 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary"
                 style="width:28px; height:28px; overflow:hidden;">
-                <img src="<?= $imagen ?>" alt="<?= $rol ?>" style="width:100%; height:100%; object-fit:cover;">
+                <i class="bi bi-person-circle fs-5"></i> 
               </span>
-
-              <!-- Información -->
-              <div class="d-flex flex-column">
-                <small class="fw-semibold"><?= $_SESSION['nomUsuario'] ?></small>
-                <small class="text-muted">@<?= $_SESSION['usuUsuario'] ?? 'usuario' ?> - <?= ucfirst($rol) ?></small>
+              <div class="d-flex flex-column text-start">
+                <small class="fw-semibold"><?= $nombreUsuario ?></small>
+                <small class="text-muted text-capitalize"><?= $rolUsuario ?></small>
               </div>
-
-              <i class="bi bi-box-arrow-right ms-2"></i> <!-- icono de salir -->
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="inicio.php?op=perfil">Perfil</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="inicio.php?op=cerrarsesion">Cerrar Sesión <i class="bi bi-box-arrow-right ms-1"></i></a></li>
+            </ul>
+          </li>
+        <?php
+        } else {
+        ?>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-gradient fw-semibold px-3" href="inicio.php?op=acceso">
+              Iniciar Sesión <i class="bi bi-person-circle ms-1"></i>
             </a>
           </li>
         <?php
         }
         ?>
 
-
-        <li class="nav-item ms-lg-2">
-          <a class="btn btn-gradient fw-semibold px-3" href="contacto.php">
-            ¡Comencemos! <i class="bi bi-rocket-takeoff ms-1"></i>
-          </a>
-        </li>
       </ul>
     </div>
   </div>
 </nav>
 
 <style>
+  /* --- ESTILOS DE LA PLANTILLA --- */
+
+  /* Botón gradiente */
+  .btn-gradient {
+    background: linear-gradient(90deg, #22d3ee, #34d399);
+    color: #0b1020;
+    border: none;
+    border-radius: .75rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+  }
+
+  .btn-gradient:hover {
+    filter: brightness(1.07);
+  }
+
+  /* Logo */
+  .pf-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background: conic-gradient(from 180deg at 50% 50%, #22d3ee, #a78bfa, #34d399, #22d3ee);
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, .25), 0 6px 16px rgba(0, 0, 0, .35);
+    /* Puedes quitar la animación si no la necesitas */
+    animation: pfspin 12s linear infinite;
+  }
+
+  @keyframes pfspin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Efecto Underline de navegación */
   .pf-nav .nav-link {
     --underline: 0;
     transition: color .2s ease, transform .2s ease;
-  }
-
-  .pf-nav .nav-link:hover {
-    transform: translateY(-1px);
   }
 
   .pf-nav .nav-link::after {
@@ -120,48 +128,11 @@ function isActive($page, $current)
     border-radius: 2px;
   }
 
-  .pf-nav .nav-link:hover::after {
+  .pf-nav .nav-link:hover::after,
+  .pf-nav .nav-link.active::after {
     --underline: 1;
     transform-origin: left;
   }
 
-  .pf-nav .nav-link.active {
-    color: #fff !important;
-  }
-
-  .pf-nav .nav-link.active::after {
-    --underline: 1;
-  }
-
-  /* Botón gradiente */
-  .btn-gradient {
-    background: linear-gradient(90deg, #22d3ee, #34d399);
-    color: #0b1020;
-    border: none;
-    border-radius: .75rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
-  }
-
-  .btn-gradient:hover {
-    filter: brightness(1.07);
-  }
-
-  /* Logo animado */
-  .pf-logo {
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
-    background: conic-gradient(from 180deg at 50% 50%, #22d3ee, #a78bfa, #34d399, #22d3ee);
-    box-shadow: inset 0 0 8px rgba(255, 255, 255, .25), 0 6px 16px rgba(0, 0, 0, .35);
-    animation: pfspin 12s linear infinite;
-  }
-
-  @keyframes pfspin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
+  /* --- FIN ESTILOS DE LA PLANTILLA --- */
 </style>
-
-<!-- Bootstrap JS (si ya lo cargas en tu layout, puedes quitar esta línea) -->
-<!-- <script src="../bootstrap/js/bootstrap.bundle.min.js"></script -->
