@@ -12,7 +12,7 @@ require_once 'paginas/menu.php';
 ?>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
+<link href="estilos/main.css" rel="stylesheet">
 
 <main class="container py-4">
     <?php
