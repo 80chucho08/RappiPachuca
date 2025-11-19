@@ -1,11 +1,11 @@
 /* Paleta */
 :root {
-    --c1: #051F20;
-    --c2: #0B2B26;
-    --c3: #163832;
-    --c4: #235347;
-    --c5: #8EB69B;
-    --c6: #DAF1DE;
+    --c1: #D34E4E;
+    --c2: #d55353;
+    --c3: #CE7E5A;
+    --c4: #DDC57A;
+    --c5: #dacba0;
+    --c6: #F9E7B2;
 }
 
 /* ========================= */
@@ -14,7 +14,7 @@
 .pf-navbar {
     background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
     backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .pf-navbar .nav-link {
@@ -63,7 +63,7 @@
     height: 28px;
     border-radius: 50%;
     background: var(--c5);
-    box-shadow: 0 0 8px rgba(0,0,0,.3);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .3);
 }
 
 /* Dropdown */
@@ -101,12 +101,7 @@
 /* Generales */
 body {
     background: var(--c6);
-    margin-top: 70px; /* espacio por navbar fija */
+    margin-top: 70px;
+    /* espacio por navbar fija */
     font-family: 'Inter', sans-serif;
 }
-
-
-
-
-
-
