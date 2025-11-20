@@ -136,11 +136,56 @@
             background-color: #28a745;
             color: white;
         }
+
+        .hero-banner {
+            width: 100%;
+            height: 180px;
+            background: url('imagenes/banner.jpg') center/cover;
+            border-radius: 16px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .hero-text h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .hero-text p {
+            color: #fff;
+            opacity: .8;
+        }
+        .category-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 10px;
+}
+
+.category-item {
+    background: #fff;
+    border-radius: 20px;
+    padding: 6px 15px;
+    white-space: nowrap;
+    font-weight: 600;
+    border: 1px solid #eee;
+}
+
     </style>
 </head>
 
 <body>
     <div class="container mb-5">
+        <div class="hero-banner mb-4">
+            <div class="hero-text">
+                <h1>Entrega rápida en Pachuca</h1>
+                <p>Descubre restaurantes, combos y todo cerca de ti</p>
+            </div>
+        </div>
+
 
         <div class="d-flex align-items-center justify-content-between mt-4 mb-4">
             <div>
@@ -148,6 +193,29 @@
                 <p class="text-muted small m-0">Cerca de ti • 25 resultados</p>
             </div>
         </div>
+        <div class="category-scroll mt-3 mb-4">
+            <div class="category-item">🍔 Hamburguesas</div>
+            <div class="category-item">🍕 Pizza</div>
+            <div class="category-item">🥤 Bebidas</div>
+            <div class="category-item">🍰 Postres</div>
+            <div class="category-item">🍔 Hamburguesas</div>
+            <div class="category-item">🍕 Pizza</div>
+            <div class="category-item">🥤 Bebidas</div>
+            <div class="category-item">🍰 Postres</div>
+            <div class="category-item">🍔 Hamburguesas</div>
+            <div class="category-item">🍕 Pizza</div>
+            <div class="category-item">🥤 Bebidas</div>
+            <div class="category-item">🍰 Postres</div>
+            <div class="category-item">🍔 Hamburguesas</div>
+            <div class="category-item">🍕 Pizza</div>
+            <div class="category-item">🥤 Bebidas</div>
+            <div class="category-item">🍰 Postres</div>
+            <div class="category-item">🍔 Hamburguesas</div>
+            <div class="category-item">🍕 Pizza</div>
+            <div class="category-item">🥤 Bebidas</div>
+            <div class="category-item">🍰 Postres</div>
+        </div>
+
 
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
 
