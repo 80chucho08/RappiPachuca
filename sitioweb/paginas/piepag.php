@@ -1,11 +1,11 @@
 <footer class="pf-footer mt-5 pt-5">
     <div class="container">
 
-        <div class="row g-4 text-light">
+        <div class="row g-4">
 
             <div class="col-md-4">
                 <h5 class="fw-bold">Sobre el Proyecto</h5>
-                <p class="small opacity-75">Rappi Pachuca es una plataforma creada como práctica profesional para gestionar pedidos, repartos y administración.</p>
+                <p class="small">Rappi Pachuca es una plataforma creada como práctica profesional para gestionar pedidos, repartos y administración.</p>
             </div>
 
             <div class="col-md-4">
@@ -19,7 +19,7 @@
 
             <div class="col-md-4">
                 <h5 class="fw-bold">Contacto</h5>
-                <ul class="list-unstyled small opacity-75">
+                <ul class="list-unstyled small">
                     <li>Email: contacto@rappipachuca.com</li>
                     <li>Tel: 771-000-0000</li>
                 </ul>
@@ -27,13 +27,13 @@
 
         </div>
 
-        <hr class="border-secondary my-4">
+        <hr class="my-4">
 
-        <div class="d-flex justify-content-between small text-light opacity-75">
+        <div class="d-flex justify-content-between small bottom-links">
             <span>© <?= date('Y') ?> Rappi Pachuca</span>
             <div class="d-flex gap-3">
-                <a href="#" class="pf-footer-link">Privacidad</a>
-                <a href="#" class="pf-footer-link">Términos</a>
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
             </div>
         </div>
 
