@@ -1,112 +1,163 @@
 /* Paleta */
 :root {
-    --c1: #051F20;
-    --c2: #0B2B26;
-    --c3: #163832;
-    --c4: #235347;
-    --c5: #8EB69B;
-    --c6: #DAF1DE;
+    --rappi1: #FF4D4D;
+    /* naranja */
+    --rappi2: #FF6F61;
+    /* coral */
+    --rappi3: #FF8A7A;
+    /* suave */
+    --rappi-bg: #FFF5F4;
+    --rappi-dark: #1F1F1F;
+}
+
+
+
+
+/* ========================= */
+/* HERO (Portada) */
+/* ========================= */
+.pf-hero {
+    height: 45vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.4)),
+        url('../imagenes/comida.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 0 0 20px 20px;
+    padding: 2rem;
+}
+
+.pf-location {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.pf-location i {
+    color: var(--rappi2);
 }
 
 /* ========================= */
-/* NAVBAR */
+/* CATEGORÍAS */
 /* ========================= */
+.pf-cat {
+    background: #fff;
+    padding: 1rem 0;
+    border-radius: 15px;
+    transition: .2s;
+}
+
+.pf-cat i {
+    font-size: 1.8rem;
+    color: var(--rappi1);
+}
+
+.pf-cat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================= */
+/* GENERAL */
+/* ========================= */
+body {
+    background: var(--rappi-bg);
+    margin-top: 70px;
+    font-family: 'Inter', sans-serif;
+}
+
+h1,
+h5 {
+    color: var(--rappi-dark);
+}
+
+
+/* ====================== */
+/* NAVBAR estilo Rappi    */
+/* ====================== */
 .pf-navbar {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+    background-color: rgba(255, 77, 77, 0.92);
+    /* naranja rappi con transparencia */
     backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    /* efecto vidrio moderno */
 }
 
-.pf-navbar .nav-link {
-    color: var(--c6);
-    padding: .65rem 1rem;
-    position: relative;
-    transition: .25s;
+.pf-navbar .navbar-brand,
+.pf-navbar .nav-link,
+.pf-navbar .dropdown-item {
+    color: #fff !important;
 }
 
-.pf-navbar .nav-link:hover {
-    color: var(--c5);
+.pf-navbar .nav-link:hover,
+.pf-navbar .active-link {
+    color: #ffeaea !important;
+    font-weight: 600;
 }
 
-.active-link {
-    color: var(--c5) !important;
-}
-
-.active-link::after {
-    content: "";
-    position: absolute;
-    left: 1rem;
-    right: 1rem;
-    bottom: .2rem;
-    height: 3px;
-    background: var(--c5);
-    border-radius: 4px;
-}
-
-/* Botón */
 .btn-pf-primary {
-    background: var(--c4);
-    color: var(--c6);
+    background: #fff;
+    color: var(--rappi1);
+    font-weight: bold;
     border-radius: 12px;
-    padding: .45rem 1rem;
+    padding: 6px 14px;
     transition: .2s;
 }
 
 .btn-pf-primary:hover {
-    background: var(--c5);
-    color: var(--c1);
+    background: var(--rappi3);
+    color: #fff;
 }
 
-/* Logo */
-.pf-logo {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--c5);
-    box-shadow: 0 0 8px rgba(0,0,0,.3);
-}
-
-/* Dropdown */
-.pf-dropdown {
-    background: var(--c2);
-    border: none;
-}
-
-.pf-dropdown .dropdown-item {
-    color: var(--c6);
-}
-
-.pf-dropdown .dropdown-item:hover {
-    background: var(--c3);
-}
 
 /* ========================= */
-/* FOOTER */
+/* FOOTER ESTILO RAPPI */
 /* ========================= */
-
 .pf-footer {
-    background: linear-gradient(180deg, var(--c1), var(--c2), var(--c3));
+    background: #1f1f1f;
+    color: #fff;
     padding-bottom: 2rem;
+    border-radius: 20px 20px 0 0;
+}
+
+.pf-footer h5 {
+    color: #ffffff;
+}
+
+.pf-footer p,
+.pf-footer li {
+    color: #dcdcdc;
 }
 
 .pf-footer-link {
-    color: var(--c6);
+    color: #ff8a7a;
     text-decoration: none;
+    transition: .2s ease;
 }
 
 .pf-footer-link:hover {
-    color: var(--c5);
+    color: #ffffff;
+    text-decoration: underline;
 }
 
-/* Generales */
-body {
-    background: var(--c6);
-    margin-top: 70px; /* espacio por navbar fija */
-    font-family: 'Inter', sans-serif;
+/* Línea separadora */
+.pf-footer hr {
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Links inferiores */
+.pf-footer .bottom-links a {
+    color: #bfbfbf;
+    transition: .2s;
+}
 
+.pf-footer .bottom-links a:hover {
+    color: #ffffff;
+}
 
-
-
-
+/* Responsivo */
+@media (max-width: 768px) {
+    .pf-footer .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
