@@ -1,3 +1,6 @@
+
+
+
 <div class="pf-hero d-flex flex-column justify-content-center align-items-center text-center">
 
     <!-- Ubicación -->
@@ -58,5 +61,5 @@
 <!-- Bloque pendiente para tarjetas de restaurantes -->
 <section class="container my-4">
     <h5 class="fw-bold mb-3">Recomendaciones</h5>
-    <p class="text-muted small">Próximamente aparecerán aquí los restaurantes…</p>
+    <?php include 'productos.php'; ?>
 </section>
