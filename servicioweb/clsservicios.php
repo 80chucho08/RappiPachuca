@@ -31,4 +31,31 @@ class clsservicios
         }
         return $datos;
     }
+
+
+    public function loginUsuario($username, $password)
+    {
+        $sql = "CALL sp_login_usuario(?, ?)";
+
+        // Conexión dentro de la función
+        if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+            $stmt = $conn->prepare($sql);
+
+            if (!$stmt) {
+                die("Error en la preparación: " . $conn->error);
+            }
+
+            $stmt->bind_param("ss", $username, $password);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $usuario = $result->fetch_assoc();
+
+            $stmt->close();
+            mysqli_close($conn); // cerrar conexión
+
+            return $usuario;
+        }
+        return null;
+    }
 }
