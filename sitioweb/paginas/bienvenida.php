@@ -1,6 +1,3 @@
-
-
-
 <div class="pf-hero d-flex flex-column justify-content-center align-items-center text-center">
 
     <!-- Ubicación -->
