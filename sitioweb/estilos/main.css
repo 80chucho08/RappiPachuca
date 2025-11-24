@@ -87,6 +87,38 @@ h5 {
     color: #fff !important;
 }
 
+
+.item-admin {
+    background-color: #7c2020 !important;
+    /* Verde oscuro */
+    color: white !important;
+}
+
+.item-admin:hover {
+    background-color: #f02020 !important;
+}
+
+.item-seller {
+    background-color: #834e0a !important;
+    /* Azul oscuro */
+    color: white !important;
+}
+
+.item-seller:hover {
+    background-color: #ff9421 !important;
+}
+
+.item-cerrar {
+    background-color: #ff0000 !important;
+    /* Azul oscuro */
+    color: white !important;
+}
+
+.item-cerrar:hover {
+    background-color: #830000 !important;
+}
+
+
 .pf-navbar .nav-link:hover,
 .pf-navbar .active-link {
     color: #ffeaea !important;

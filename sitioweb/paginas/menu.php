@@ -51,19 +51,19 @@ $rolUsuario = $_SESSION['role'] ?? '';
                         <ul class="dropdown-menu dropdown-menu-end pf-dropdown">
 
                             <?php if ($rolUsuario === 'admin'): ?>
-                                <li><a class="dropdown-item" href="inicio.php?op=adminIndex">Panel Admin</a></li>
+                                <li><a class="dropdown-item item-admin" href="inicio.php?op=adminIndex">Panel Admin</a></li>
+                                <li><a class="dropdown-item item-admin" href="inicio.php?op=crear_vendedor">Crear Vendedor</a></li>
 
-                                <li><a class="dropdown-item" href="inicio.php?op=crear_vendedor">Crear Vendedor</a></li>
                             <?php elseif ($rolUsuario === 'seller'): ?>
-                                <li><a class="dropdown-item" href="inicio.php?op=sellerIndex">Panel Vendedor</a></li>
-
-                                <li><a class="dropdown-item" href="inicio.php?op=agregar_producto">Agregar Producto</a></li>
+                                <li><a class="dropdown-item item-seller" href="inicio.php?op=sellerIndex">Panel Vendedor</a></li>
+                                <li><a class="dropdown-item item-seller" href="inicio.php?op=agregar_producto">Agregar Producto</a></li>
                             <?php endif; ?>
+
 
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="paginas/cerrar_sesion.php">Cerrar sesión</a></li>
+                            <li><a class="dropdown-item item-cerrar" href="paginas/cerrar_sesion.php">Cerrar sesión</a></li>
                         </ul>
                     </li>
 
