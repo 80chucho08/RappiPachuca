@@ -20,8 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['fullname'] = $respuesta['fullname'];
         $_SESSION['role'] = $respuesta['role'];
 
-        // Redirigir siempre al inicio
-        header("Location: ./inicio.php");
+        // Determinar la redirección según el rol
+        $redirect_op = '';
+        switch ($_SESSION['role']) {
+            case 'admin':
+                $redirect_op = 'adminIndex'; // coincide con paginas/adminIndex.php
+                break;
+            case 'seller':
+                $redirect_op = 'sellerIndex'; // coincide con paginas/sellerIndex.php
+                break;
+            default:
+                $redirect_op = 'bienvenida';
+        }
+
+        // Redirigir al inicio normal con la operación
+        header("Location: ./inicio.php?op=" . $redirect_op);
         exit();
     } else {
         $error = $respuesta['mensaje']; // Guardamos mensaje de error
