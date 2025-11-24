@@ -1,29 +1,31 @@
 <?php
-// Iniciar sesión si no está activa
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Obtener la página solicitada o usar 'bienvenida' por defecto
-$pagina = isset($_GET['op']) ? strtolower($_GET['op']) : 'bienvenida';
+$GLOBALS['pagina'] = isset($_GET['op']) ? $_GET['op'] : 'bienvenida';
+$pagina = $GLOBALS['pagina'];
 
-// Incluir el encabezado/menú (ej. 'paginas/menu.php')
+
+
+// Construimos la ruta
+$ruta = "paginas/{$pagina}.php";
+
+// Validación por si no existe
+if (!file_exists($ruta)) {
+    $ruta = "paginas/bienvenida.php";
+}
+
 require_once 'paginas/menu.php';
 ?>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-<link href="estilos/main.css" rel="stylesheet">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="estilos/main.css">
 
 <main class="container py-4">
-    <?php
-    // Inclusión dinámica del contenido principal (ej. 'paginas/bienvenida.php')
-    require_once 'paginas/' . $pagina . '.php';
-    ?>
+    <?php require_once $ruta; ?>
 </main>
 
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<?php
-// Incluir el pie de página (ej. 'paginas/piepag.php')
-require_once 'paginas/piepag.php';
-?>
+<?php require_once 'paginas/piepag.php'; ?>
