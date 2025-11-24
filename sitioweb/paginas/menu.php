@@ -3,7 +3,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-function isActive($op) {
+function isActive($op)
+{
     return ($GLOBALS['pagina'] === $op) ? 'active-link' : '';
 }
 
@@ -15,7 +16,7 @@ $rolUsuario = $_SESSION['role'] ?? '';
 
 <nav class="navbar navbar-expand-lg navbar-dark pf-navbar shadow-sm fixed-top">
     <div class="container">
-        
+
         <a class="navbar-brand d-flex align-items-center gap-2" href="inicio.php">
             <span class="pf-logo"></span>
             <strong>Rappi Pachuca</strong>
@@ -50,14 +51,18 @@ $rolUsuario = $_SESSION['role'] ?? '';
                         <ul class="dropdown-menu dropdown-menu-end pf-dropdown">
 
                             <?php if ($rolUsuario === 'admin'): ?>
-                                <li><a class="dropdown-item" href="admin/index.php">Panel Admin</a></li>
-                                <li><a class="dropdown-item" href="admin/crear_vendedor.php">Crear Vendedor</a></li>
+                                <li><a class="dropdown-item" href="inicio.php?op=adminIndex">Panel Admin</a></li>
+
+                                <li><a class="dropdown-item" href="inicio.php?op=crear_vendedor">Crear Vendedor</a></li>
                             <?php elseif ($rolUsuario === 'seller'): ?>
-                                <li><a class="dropdown-item" href="seller/index.php">Panel Vendedor</a></li>
-                                <li><a class="dropdown-item" href="seller/agregar_producto.php">Agregar Producto</a></li>
+                                <li><a class="dropdown-item" href="inicio.php?op=sellerIndex">Panel Vendedor</a></li>
+
+                                <li><a class="dropdown-item" href="inicio.php?op=agregar_producto">Agregar Producto</a></li>
                             <?php endif; ?>
 
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="paginas/cerrar_sesion.php">Cerrar sesión</a></li>
                         </ul>
                     </li>
