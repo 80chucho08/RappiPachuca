@@ -22,5 +22,5 @@ if (ini_get("session.use_cookies")) {
 }
 
 // Redirigir al inicio o página de bienvenida
-header("Location: inicio.php");
+header("Location: ../inicio.php");
 exit();
