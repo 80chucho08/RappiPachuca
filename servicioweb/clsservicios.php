@@ -102,4 +102,34 @@ class clsservicios
             return ["estado" => 0, "mensaje" => "Error: " . $e->getMessage()];
         }
     }
+
+
+
+    public function obtenerProductosPorSeller($seller_id)
+    {
+        $sql = "call sp_get_products_by_seller(?)";
+        $productos = [];
+
+        if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+
+            $stmt = $conn->prepare($sql);
+
+            if (!$stmt) {
+                return [];
+            }
+
+            $stmt->bind_param("i", $seller_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+                $productos[] = $row;
+            }
+
+            $stmt->close();
+            mysqli_close($conn);
+        }
+
+        return $productos;
+    }
 }
