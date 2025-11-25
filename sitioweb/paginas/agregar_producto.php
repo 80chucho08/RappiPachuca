@@ -1,41 +1,87 @@
 <?php
-// sitioweb/paginas/seller/agregar_producto.php
+if (session_status() == PHP_SESSION_NONE) session_start();
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+// Solo sellers pueden entrar
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'seller') {
+    header("Location: inicio.php?op=acceso");
+    exit();
 }
 
-// Validación de rol
-if ($_SESSION['role'] !== 'seller') {
-    echo "<div class='alert alert-danger'>Acceso denegado. Se requiere rol de Vendedor.</div>";
-    exit;
-}
+require_once "../servicioweb/clsservicios.php";
+$serv = new clsservicios();
+$msg = "";
 
-// Lógica para procesar el formulario si se envía (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Aquí iría la lógica para llamar al procedimiento almacenado
-    // Por ahora, solo un mensaje de prueba:
-    $mensaje = "Formulario de Producto enviado. (Llamada al SP pendiente).";
-    // $nombreProducto = $_POST['nombre_producto'] ?? '';
-    // $idVendedor = $_SESSION['id'];
-    // $serv->agregarProducto($idVendedor, $nombreProducto, ...);
+
+    $seller_id = $_SESSION['id'];
+    $category_id = $_POST['category_id'];
+    $title = $_POST['title'];
+    $image_url = $_POST['image_url'];
+    $description = $_POST['description'];
+    $cost = $_POST['cost'];
+    $num_dueno = $_POST['num_dueno'];
+
+    $respuesta = $serv->agregarProducto(
+        $seller_id,
+        $category_id,
+        $title,
+        $image_url,
+        $description,
+        $cost,
+        $num_dueno
+    );
+
+    $msg = $respuesta['mensaje'];
 }
 ?>
 
-<h2>Agregar Producto</h2>
+<div class="container mt-4">
 
-<?php if (isset($mensaje)): ?>
-    <div class="alert alert-info"><?= $mensaje ?></div>
-<?php endif; ?>
+    <h3 class="mb-4">Agregar Producto</h3>
 
-<form action="inicio.php?op=seller/agregar_producto" method="POST">
-    <div class="mb-3">
-        <label for="nombre_producto" class="form-label">Nombre del Producto</label>
-        <input type="text" class="form-control" id="nombre_producto" name="nombre_producto" required>
-    </div>
-    <div class="mb-3">
-        <label for="precio_producto" class="form-label">Precio</label>
-        <input type="number" step="0.01" class="form-control" id="precio_producto" name="precio_producto" required>
-    </div>
-    <button type="submit" class="btn btn-success">Añadir Producto</button>
-</form>
+    <?php if (!empty($msg)): ?>
+        <div class="alert alert-info"><?= $msg ?></div>
+    <?php endif; ?>
+
+    <form method="POST">
+
+        <div class="mb-3">
+            <label class="form-label">Categoría</label>
+            <select name="category_id" class="form-control" required>
+                <option value="1">Comida</option>
+                <option value="2">Bebida</option>
+                <option value="3">Postres</option>
+                <option value="4">Servicios</option>
+                <!-- Puedes cargar dinamicamente las categorías -->
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Título del Producto</label>
+            <input type="text" name="title" class="form-control" required maxlength="150">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">URL de la Imagen</label>
+            <input type="text" name="image_url" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea name="description" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Costo</label>
+            <input type="number" name="cost" class="form-control" step="0.01" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Número del Dueño</label>
+            <input type="text" name="num_dueno" class="form-control" required maxlength="20">
+        </div>
+
+        <button class="btn btn-primary w-100">Guardar Producto</button>
+    </form>
+
+</div>
