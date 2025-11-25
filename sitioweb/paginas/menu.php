@@ -1,16 +1,22 @@
 <?php
-function isActive($op) {
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+function isActive($op)
+{
     return ($GLOBALS['pagina'] === $op) ? 'active-link' : '';
 }
 
-$usuarioLog = isset($_SESSION['usuario_logueado']);
-$nombreUsuario = $_SESSION['nombre'] ?? '';
-$rolUsuario = $_SESSION['rol'] ?? '';
+// Detectar si hay usuario logueado
+$usuarioLog = isset($_SESSION['id']); // Cambié a 'id' según acceso.php
+$nombreUsuario = $_SESSION['fullname'] ?? '';
+$rolUsuario = $_SESSION['role'] ?? '';
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark pf-navbar shadow-sm fixed-top">
     <div class="container">
-        
+
         <a class="navbar-brand d-flex align-items-center gap-2" href="inicio.php">
             <span class="pf-logo"></span>
             <strong>Rappi Pachuca</strong>
@@ -36,17 +42,31 @@ $rolUsuario = $_SESSION['rol'] ?? '';
                 </li>
 
                 <?php if ($usuarioLog): ?>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle user-profile" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle me-1"></i>
-                            <?= $nombreUsuario ?>
+                            <?= htmlspecialchars($nombreUsuario) ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end pf-dropdown">
-                            <li><a class="dropdown-item" href="inicio.php?op=perfil">Perfil</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="inicio.php?op=cerrarsesion">Cerrar sesión</a></li>
+
+                            <?php if ($rolUsuario === 'admin'): ?>
+                                <li><a class="dropdown-item item-admin" href="inicio.php?op=adminIndex">Panel Admin</a></li>
+                                <li><a class="dropdown-item item-admin" href="inicio.php?op=crear_vendedor">Crear Vendedor</a></li>
+
+                            <?php elseif ($rolUsuario === 'seller'): ?>
+                                <li><a class="dropdown-item item-seller" href="inicio.php?op=sellerIndex">Panel Vendedor</a></li>
+                                <li><a class="dropdown-item item-seller" href="inicio.php?op=agregar_producto">Agregar Producto</a></li>
+                            <?php endif; ?>
+
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item item-cerrar" href="paginas/cerrar_sesion.php">Cerrar sesión</a></li>
                         </ul>
                     </li>
+
                 <?php else: ?>
                     <li class="nav-item ms-lg-3">
                         <a class="btn btn-pf-primary" href="inicio.php?op=acceso">Iniciar Sesión</a>
