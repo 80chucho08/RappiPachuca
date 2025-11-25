@@ -10,6 +10,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'seller') {
 require_once "../servicioweb/clsservicios.php";
 $serv = new clsservicios();
 $msg = "";
+$productosSeller = $serv->obtenerProductosPorSeller($_SESSION['id']);
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -83,5 +85,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button class="btn btn-primary w-100">Guardar Producto</button>
     </form>
+
+
+
+    <hr class="my-5">
+
+    <h3>Mis Productos</h3>
+
+    <?php if (empty($productosSeller)): ?>
+        <div class="alert alert-warning">Aún no tienes productos registrados.</div>
+    <?php else: ?>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Título</th>
+                    <th>Costo</th>
+                    <th>Número</th>
+                    <th>Creado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($productosSeller as $prod): ?>
+                    <tr>
+                        <td>
+                            <img src="./imagenes/<?= $prod['image_url'] ?>" width="60" height="60" class="rounded">
+                        </td>
+                        <td><?= $prod['title'] ?></td>
+                        <td>$<?= number_format($prod['cost'], 2) ?></td>
+                        <td><?= $prod['num_dueno'] ?></td>
+                        <td><?= $prod['created_at'] ?></td>
+                        <td>
+                            <a href="inicio.php?op=editarProducto&id=<?= $prod['product_id'] ?>"
+                                class="btn btn-sm btn-warning">
+                                Editar
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
 
 </div>
