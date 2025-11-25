@@ -132,4 +132,147 @@ class clsservicios
 
         return $productos;
     }
+
+
+
+    public function crearVendedor($username, $password, $fullname, $phone)
+    {
+        $sql = "CALL sp_add_seller(?, ?, ?, ?)";
+
+        try {
+            if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+
+                $stmt = $conn->prepare($sql);
+
+                if (!$stmt) {
+                    return ["estado" => 0, "mensaje" => "Error en prepare: " . $conn->error];
+                }
+
+                $stmt->bind_param(
+                    "ssss",
+                    $username,
+                    $password, // AHORA SE USA LA CONTRASEÑA EN TEXTO PLANO
+                    $fullname,
+                    $phone
+                );
+
+                if ($stmt->execute()) {
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 1, "mensaje" => "Vendedor creado correctamente"];
+                } else {
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 0, "mensaje" => "No se pudo ejecutar el procedimiento"];
+                }
+            }
+
+            return ["estado" => 0, "mensaje" => "No se pudo conectar a la base de datos"];
+        } catch (Exception $e) {
+            return ["estado" => 0, "mensaje" => "Error: " . $e->getMessage()];
+        }
+    }
+
+
+    public function obtenerSellers()
+    {
+        $query = "CALL sp_obtener_sellers()";
+
+        try {
+            // Conexión independiente para esta función
+            if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+
+                $stmt = $conn->prepare($query);
+
+                if (!$stmt) {
+                    mysqli_close($conn);
+                    return ["estado" => 0, "mensaje" => "Error en prepare: " . $conn->error];
+                }
+
+                if ($stmt->execute()) {
+                    $result = $stmt->get_result();
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 1, "resultado" => $result]; // Devuelve el resultado si es exitoso
+                } else {
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 0, "mensaje" => "No se pudo ejecutar el procedimiento"];
+                }
+            }
+            return ["estado" => 0, "mensaje" => "No se pudo conectar a la base de datos"];
+        } catch (Exception $e) {
+            return ["estado" => 0, "mensaje" => "Error: " . $e->getMessage()];
+        }
+    }
+
+
+    public function actualizarSeller($id, $username, $fullname, $phone)
+    {
+        $query = "CALL sp_actualizar_seller(?, ?, ?, ?)";
+
+        try {
+            // Conexión independiente para esta función
+            if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+
+                $stmt = $conn->prepare($query);
+
+                if (!$stmt) {
+                    mysqli_close($conn);
+                    return ["estado" => 0, "mensaje" => "Error en prepare: " . $conn->error];
+                }
+
+                $stmt->bind_param("isss", $id, $username, $fullname, $phone);
+
+                if ($stmt->execute()) {
+                    $filasAfectadas = $stmt->affected_rows;
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 1, "mensaje" => "Vendedor actualizado correctamente", "filas_afectadas" => $filasAfectadas];
+                } else {
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 0, "mensaje" => "No se pudo ejecutar el procedimiento"];
+                }
+            }
+            return ["estado" => 0, "mensaje" => "No se pudo conectar a la base de datos"];
+        } catch (Exception $e) {
+            return ["estado" => 0, "mensaje" => "Error: " . $e->getMessage()];
+        }
+    }
+
+
+    public function eliminarSeller($id)
+    {
+        $query = "CALL sp_eliminar_seller(?)";
+
+        try {
+            // Conexión independiente para esta función
+            if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+
+                $stmt = $conn->prepare($query);
+
+                if (!$stmt) {
+                    mysqli_close($conn);
+                    return ["estado" => 0, "mensaje" => "Error en prepare: " . $conn->error];
+                }
+
+                $stmt->bind_param("i", $id);
+
+                if ($stmt->execute()) {
+                    $filasAfectadas = $stmt->affected_rows;
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 1, "mensaje" => "Vendedor eliminado correctamente", "filas_afectadas" => $filasAfectadas];
+                } else {
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 0, "mensaje" => "No se pudo ejecutar el procedimiento"];
+                }
+            }
+            return ["estado" => 0, "mensaje" => "No se pudo conectar a la base de datos"];
+        } catch (Exception $e) {
+            return ["estado" => 0, "mensaje" => "Error: " . $e->getMessage()];
+        }
+    }
 }
