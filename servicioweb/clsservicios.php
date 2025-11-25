@@ -58,4 +58,48 @@ class clsservicios
         }
         return null;
     }
+
+
+    public function agregarProducto($seller_id, $category_id, $title, $image_url, $description, $cost, $num_dueno)
+    {
+        $sql = "CALL sp_add_product(?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            // Conexión dentro de la función (igual que tus otras funciones)
+            if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+
+                $stmt = $conn->prepare($sql);
+
+                if (!$stmt) {
+                    return ["estado" => 0, "mensaje" => "Error en prepare: " . $conn->error];
+                }
+
+                // bind_param → i = int, s = string, d = double
+                $stmt->bind_param(
+                    "iisssds",
+                    $seller_id,
+                    $category_id,
+                    $title,
+                    $image_url,
+                    $description,
+                    $cost,
+                    $num_dueno
+                );
+
+                if ($stmt->execute()) {
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 1, "mensaje" => "Producto agregado correctamente"];
+                } else {
+                    $stmt->close();
+                    mysqli_close($conn);
+                    return ["estado" => 0, "mensaje" => "No se pudo ejecutar el procedimiento"];
+                }
+            }
+
+            return ["estado" => 0, "mensaje" => "No se pudo conectar a la base de datos"];
+        } catch (Exception $e) {
+            return ["estado" => 0, "mensaje" => "Error: " . $e->getMessage()];
+        }
+    }
 }
