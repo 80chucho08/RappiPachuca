@@ -34,21 +34,21 @@
         <div class="col-3">
             <div class="pf-cat shadow-sm">
                 <i class="bi bi-cup-hot-fill"></i>
-                <p class="small mt-2">Café</p>
+                <p class="small mt-2">Bebida</p>
             </div>
         </div>
 
         <div class="col-3">
             <div class="pf-cat shadow-sm">
                 <i class="bi bi-shop"></i>
-                <p class="small mt-2">Tiendas</p>
+                <p class="small mt-2">Postres</p>
             </div>
         </div>
 
         <div class="col-3">
             <div class="pf-cat shadow-sm">
                 <i class="bi bi-bicycle"></i>
-                <p class="small mt-2">Envíos</p>
+                <p class="small mt-2">Servicios</p>
             </div>
         </div>
 
