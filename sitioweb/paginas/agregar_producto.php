@@ -13,8 +13,15 @@ $msg = "";
 $productosSeller = $serv->obtenerProductosPorSeller($_SESSION['id']);
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_GET['eliminar'])) {
+    $resp = $serv->eliminarProducto($_GET['eliminar']);
+    $msg = $resp['mensaje'];
 
+    // Recargar lista
+    $productosSeller = $serv->obtenerProductosPorSeller($_SESSION['id']);
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
     $seller_id = $_SESSION['id'];
     $category_id = $_POST['category_id'];
     $title = $_POST['title'];
@@ -32,9 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cost,
         $num_dueno
     );
-
+    
     $msg = $respuesta['mensaje'];
 }
+
+
 ?>
 
 <div class="container mt-4">
@@ -117,10 +126,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <td><?= $prod['num_dueno'] ?></td>
                         <td><?= $prod['created_at'] ?></td>
                         <td>
-                            <a href="inicio.php?op=editarProducto&id=<?= $prod['product_id'] ?>"
+                            <a href="inicio.php?op=editar_Producto&id=<?= $prod['product_id'] ?>"
                                 class="btn btn-sm btn-warning">
                                 Editar
                             </a>
+                            <a href="inicio.php?op=agregar_Producto&eliminar=<?= $prod['product_id'] ?>"
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('¿Eliminar este producto?')">
+                                Eliminar
+                            </a>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
