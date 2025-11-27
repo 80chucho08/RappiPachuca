@@ -275,4 +275,55 @@ class clsservicios
             return ["estado" => 0, "mensaje" => "Error: " . $e->getMessage()];
         }
     }
+
+
+    public function actualizarProducto($id, $title, $image_url, $description, $cost, $num_dueno)
+    {
+        $conn = new mysqli("localhost", "root", "", "bd_contactos");
+
+        if ($conn->connect_error) {
+            return ["estado" => 0, "mensaje" => "Error de conexión"];
+        }
+
+        $stmt = $conn->prepare("CALL sp_actualizar_producto(?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssds", $id, $title, $image_url, $description, $cost, $num_dueno);
+
+        if ($stmt->execute()) {
+            return ["estado" => 1, "mensaje" => "Producto actualizado correctamente"];
+        } else {
+            return ["estado" => 0, "mensaje" => "Error al actualizar"];
+        }
+    }
+
+
+    public function obtenerProductoPorId($id)
+    {
+        $conn = new mysqli("localhost", "root", "", "bd_contactos");
+
+        $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+    public function eliminarProducto($id)
+    {
+        $conn = new mysqli("localhost", "root", "", "bd_contactos");
+
+        if ($conn->connect_error) {
+            return ["estado" => 0, "mensaje" => "Error de conexión"];
+        }
+
+        $stmt = $conn->prepare("CALL sp_eliminar_producto(?)");
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            return ["estado" => 1, "mensaje" => "Producto eliminado correctamente"];
+        } else {
+            return ["estado" => 0, "mensaje" => "No se pudo eliminar el producto"];
+        }
+    }
+
 }
