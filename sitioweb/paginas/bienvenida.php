@@ -22,7 +22,7 @@
 <section class="container mt-4">
     <h5 class="fw-bold mb-3">Categorías</h5>
 
-    <div class="row g-4 text-center">
+    <div class="row g-4 text-center justify-content-center">
         <div class="col-2">
             <a href="inicio.php?op=bienvenida&cat=0" class="text-decoration-none text-dark">
                 <div class="pf-cat shadow-sm">
