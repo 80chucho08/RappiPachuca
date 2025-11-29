@@ -10,12 +10,12 @@
     <h1 class="fw-bold text-white mb-3">¿Qué se te antoja hoy?</h1>
 
     <!-- Barra de búsqueda -->
-    <div class="col-10 col-md-6">
+    <!-- <div class="col-10 col-md-6">
         <div class="input-group input-group-lg shadow-sm">
             <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
             <input type="text" class="form-control" placeholder="Buscar comida, tienda o servicio...">
         </div>
-    </div>
+    </div> -->
 </div>
 
 <!-- Categorías -->
