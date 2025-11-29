@@ -326,4 +326,34 @@ class clsservicios
         }
     }
 
+    public function obtenerProductosPorCategoria($category_id)
+    {
+        $productos = [];
+
+        $sql = "CALL SP_ObtenerProductosPorCategoria(?)";
+
+        // Conexión dentro de la función
+        if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+            $stmt = $conn->prepare($sql);
+
+            if (!$stmt) {
+                die("Error en la preparación: " . $conn->error);
+            }
+
+            // bind_param → "i" porque es un entero
+            $stmt->bind_param("i", $category_id);
+            $stmt->execute();
+
+            $resultado = $stmt->get_result();
+
+            while ($fila = $resultado->fetch_assoc()) {
+                $productos[] = $fila;
+            }
+
+            $stmt->close();
+            mysqli_close($conn); // cerrar conexión
+        }
+
+        return $productos;
+    }
 }
