@@ -79,3 +79,65 @@
     <?php include 'productos.php'; ?>
 </section>
 
+
+
+<!-- Modal Info del Producto -->
+<div class="modal fade" id="modalProducto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalProductoTitulo"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <img id="modalProductoImagen" class="img-fluid rounded" alt="">
+                    </div>
+
+                    <div class="col-md-7">
+                        <h4 id="modalProductoPrecio" class="text-success fw-bold"></h4>
+                        <p id="modalProductoCategoria" class="text-muted"></p>
+                        <p id="modalProductoDescripcion"></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary">Agregar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        var modalProducto = document.getElementById("modalProducto");
+
+        modalProducto.addEventListener("show.bs.modal", function(event) {
+
+            var card = event.relatedTarget;
+
+            // Obtener datos del producto
+            var titulo = card.getAttribute("data-titulo");
+            var imagen = card.getAttribute("data-imagen");
+            var precio = card.getAttribute("data-precio");
+            var categoria = card.getAttribute("data-categoria");
+            var descripcion = card.getAttribute("data-descripcion");
+
+            // Insertar en el modal
+            document.getElementById("modalProductoTitulo").textContent = titulo;
+            document.getElementById("modalProductoImagen").src = imagen;
+            document.getElementById("modalProductoPrecio").textContent = "$" + precio;
+            document.getElementById("modalProductoCategoria").textContent = categoria;
+            document.getElementById("modalProductoDescripcion").textContent = descripcion;
+        });
+    });
+</script>
