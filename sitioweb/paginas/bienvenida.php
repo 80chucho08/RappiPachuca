@@ -108,7 +108,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary">Agregar</button>
+                <button id="btnHacerPedido" class="btn btn-primary">Hacer Pedido</button>
             </div>
 
         </div>
@@ -120,24 +120,50 @@
     document.addEventListener("DOMContentLoaded", function() {
 
         var modalProducto = document.getElementById("modalProducto");
+        var botonPedido = document.getElementById("btnHacerPedido");
+
+        let ultimoProducto = {}; // para guardar el producto actual mostrado
 
         modalProducto.addEventListener("show.bs.modal", function(event) {
 
             var card = event.relatedTarget;
 
-            // Obtener datos del producto
-            var titulo = card.getAttribute("data-titulo");
-            var imagen = card.getAttribute("data-imagen");
-            var precio = card.getAttribute("data-precio");
-            var categoria = card.getAttribute("data-categoria");
-            var descripcion = card.getAttribute("data-descripcion");
+            // Guardar los datos del producto actual
+            ultimoProducto = {
+                titulo: card.getAttribute("data-titulo"),
+                precio: card.getAttribute("data-precio"),
+                categoria: card.getAttribute("data-categoria"),
+                descripcion: card.getAttribute("data-descripcion"),
+                telefono: card.getAttribute("data-telefono")
+            };
 
             // Insertar en el modal
-            document.getElementById("modalProductoTitulo").textContent = titulo;
-            document.getElementById("modalProductoImagen").src = imagen;
-            document.getElementById("modalProductoPrecio").textContent = "$" + precio;
-            document.getElementById("modalProductoCategoria").textContent = categoria;
-            document.getElementById("modalProductoDescripcion").textContent = descripcion;
+            document.getElementById("modalProductoTitulo").textContent = ultimoProducto.titulo;
+            document.getElementById("modalProductoImagen").src = card.getAttribute("data-imagen");
+            document.getElementById("modalProductoPrecio").textContent = "$" + ultimoProducto.precio;
+            document.getElementById("modalProductoCategoria").textContent = ultimoProducto.categoria;
+            document.getElementById("modalProductoDescripcion").textContent = ultimoProducto.descripcion;
         });
+
+        // Evento del botón "Hacer Pedido"
+        botonPedido.addEventListener("click", function() {
+
+            // Número del vendedor (cámbialo por el real)
+            let numero = "52" + ultimoProducto.telefono;
+
+            // Mensaje dinámico
+            let mensaje =
+                "Hola, quiero hacer un pedido:%0A" +
+                "👉 *" + ultimoProducto.titulo + "*%0A" +
+                "💵 Precio: $" + ultimoProducto.precio + "%0A" +
+                "📦 Categoría: " + ultimoProducto.categoria + "%0A%0A" +
+                "¿Está disponible?";
+
+            // Abrir WhatsApp
+            let url = "https://wa.me/" + numero + "?text=" + mensaje;
+
+            window.open(url, "_blank");
+        });
+
     });
 </script>
