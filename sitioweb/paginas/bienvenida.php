@@ -1,3 +1,5 @@
+<?php include 'anuncios_laterales.php'; ?>
+
 <div class="pf-hero d-flex flex-column justify-content-center align-items-center text-center">
 
     <!-- Ubicación -->
@@ -76,3 +78,4 @@
     <h5 class="fw-bold mb-3">Recomendaciones</h5>
     <?php include 'productos.php'; ?>
 </section>
+
