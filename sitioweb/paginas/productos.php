@@ -25,6 +25,7 @@ $productos = $servicios->obtenerProductosPorCategoria($cat);
                      data-precio="<?php echo $prod['cost']; ?>"
                      data-categoria="<?php echo $prod['category_name'] ?? 'Sin categoría'; ?>"
                      data-descripcion="<?php echo $prod['description']; ?>"
+                     data-telefono="<?php echo $prod['num_dueño']; ?>"
                      style="cursor: pointer;"
                 >
                     
