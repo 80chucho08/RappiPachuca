@@ -193,3 +193,71 @@ h5 {
         text-align: center;
     }
 }
+
+
+
+
+/* ===== BARRAS LATERALES COMPLETAS SIN TAPAR EL MENÚ ===== */
+.ads-left,
+.ads-right {
+    position: fixed;
+    top: 56px;
+    /* Ajusta según la altura de tu menú */
+    height: calc(120vh - 80px);
+    /* Resta el menú */
+    width: 140px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    overflow-y: auto;
+    z-index: 99999;
+}
+
+/* Izquierda */
+.ads-left {
+    left: 0;
+}
+
+/* Derecha */
+.ads-right {
+    right: 0;
+}
+
+/* Cada anuncio */
+.ad-box {
+    background: transparent;
+    border: none;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Imagen */
+.ad-box img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Título */
+.ad-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* ===== Ocultar en pantallas pequeñas ===== */
+@media (max-width: 1200px) {
+
+    .ads-left,
+    .ads-right {
+        display: none;
+    }
+}
+
+/* ===== Ajustar contenido principal a las barras ===== */
+body {
+    padding-left: 160px;
+    padding-right: 160px;
+}
