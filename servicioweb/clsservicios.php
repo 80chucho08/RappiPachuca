@@ -356,4 +356,23 @@ class clsservicios
 
         return $productos;
     }
+
+    public function obtenerAnuncios()
+    {
+        $anuncios = [];
+
+        if ($conn = mysqli_connect("localhost", "root", "", "bd_contactos")) {
+
+            $sql = "CALL SP_ObtenerAnuncios()";
+            $resultado = $conn->query($sql);
+
+            while ($fila = $resultado->fetch_assoc()) {
+                $anuncios[] = $fila;
+            }
+
+            mysqli_close($conn);
+        }
+
+        return $anuncios;
+    }
 }
